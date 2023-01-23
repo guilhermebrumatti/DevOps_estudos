@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        Label any
+    agent any 
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
     }
     stages { 
         stage('Stage Inicio') {
