@@ -1,10 +1,12 @@
 pipeline {
-    agent any
-
+    agent {
+        dockerfile true
+    }
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
+                docker pull python
             }
         }
         stage('Test') {
