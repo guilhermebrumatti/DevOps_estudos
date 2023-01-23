@@ -1,41 +1,34 @@
 pipeline {
-    agent {
-        label 'main'
-    }
-
+    agent any 
     environment {
-	  DOCKERHUB_CREDENTIALS = '<password>'
-	}
-
-    stages{
-        stage('Clone repository') {
+    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
+    }
+    stages { 
+        stage('SCM Checkout') {
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'BitbucketWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'user_jenkins', url: 'https://x-token-auth:Xd8JPOvWpA2LkQOiK9He@bitbucket.org/desafio-1-foguete-devops/desafio_1.git']]])
+            git 'https://github.com/ravdy/nodejs-demo.git'
             }
-            
         }
 
-        stage('Build') {
-            steps{
-                
-                bat 'docker build -t /guilhermebrumatti/desafio1:latest .'
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t valaxy/nodeapp:$BUILD_NUMBER .'
             }
         }
-        stage('Login to dockerhub') {
+        stage('login to dockerhub') {
             steps{
-                bat 'docker login -u <user> -p <password>'
-            }    
-        }
-        stage('Push image') {
-            steps{
-                bat 'docker push /guilhermebrumatti/desafio1:latest'
-            }  
-        post {
-            always {
-               bat 'docker logout' 
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
-        }         
-            
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push valaxy/nodeapp:$BUILD_NUMBER'
+            }
+        }
+}
+post {
+        always {
+            sh 'docker logout'
         }
     }
 }
