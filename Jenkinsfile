@@ -1,28 +1,19 @@
 pipeline {
-    agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
-    }
     stages { 
-        stage('SCM Checkout') {
+        stage('Stage Inicio') {
             steps{
-            git 'https://github.com/guilhermebrumatti/desafio1.git'
+            echo 'iniciou...'
             }
         }
 
-        stage('Build docker image') {
+        stage('Stage Meio') {
             steps {  
-                sh 'docker build -t valaxy/nodeapp:$BUILD_NUMBER .'
+                echo 'ta no meio...'
             }
         }
-        stage('login to dockerhub') {
+        stage('Stage Fim') {
             steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('push image') {
-            steps{
-                sh 'docker push valaxy/nodeapp:$BUILD_NUMBER'
+                echo 'finalizou...'
             }
         }
 }
