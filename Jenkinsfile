@@ -1,7 +1,12 @@
 pipeline {
     agent {
-        dockerfile true
+        label 'main'
     }
+    
+    environment {
+        DOCKERHUB_CREDENTIALS = '<password>'
+    }
+    
     stages {
         stage('Build') {
             steps {
