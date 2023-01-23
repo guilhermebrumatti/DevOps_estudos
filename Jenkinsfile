@@ -1,29 +1,42 @@
 pipeline {
-    agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
+    agent {
+        label 'main'
     }
-    stages { 
-        stage('Stage Inicio') {
+
+    environment {
+	  DOCKERHUB_CREDENTIALS = '<password>'
+	}
+
+
+    stages{
+        stage('Clone repository') {
             steps{
-            echo 'iniciou...'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'BitbucketWeb', repoUrl: 'https://lrocha85@bitbucket.org/lrocha85/brasileirao.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'devops_estudo', url: 'https://lrocha85@bitbucket.org/lrocha85/brasileirao.git']]])
             }
+            
         }
 
-        stage('Stage Meio') {
-            steps {  
-                echo 'ta no meio...'
-            }
-        }
-        stage('Stage Fim') {
+        stage('Build') {
             steps{
-                echo 'finalizou...'
+                
+                bat 'docker build - < Dockerfile'
             }
         }
-}
-post {
-        always {
-            sh 'docker logout'
+        stage('Login to dockerhub') {
+            steps{
+                bat 'docker login -u <user> -p <password>'
+            }    
+        }
+        stage('Push image') {
+            steps{
+                bat 'docker push lrocha85/brasileirao_image:latest'
+            }  
+        post {
+            always {
+               bat 'docker logout' 
+            }
+        }         
+            
         }
     }
 }
