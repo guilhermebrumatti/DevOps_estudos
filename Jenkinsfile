@@ -2,27 +2,40 @@ pipeline {
     agent {
         label 'main'
     }
-    
+
     environment {
-        DOCKERHUB_CREDENTIALS = '<password>'
-    }
-    
-    stages {
+	  DOCKERHUB_CREDENTIALS = '<password>'
+	}
+
+    stages{
+        stage('Clone repository') {
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'BitbucketWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'user_jenkins', url: 'https://x-token-auth:Xd8JPOvWpA2LkQOiK9He@bitbucket.org/desafio-1-foguete-devops/desafio_1.git']]])
+            }
+            
+        }
+
         stage('Build') {
-            steps {
-                echo 'Building..'
-                docker pull python
+            steps{
+                
+                bat 'docker build -t /guilhermebrumatti/desafio1:latest .'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
+        stage('Login to dockerhub') {
+            steps{
+                bat 'docker login -u <user> -p <password>'
+            }    
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+        stage('Push image') {
+            steps{
+                bat 'docker push /guilhermebrumatti/desafio1:latest'
+            }  
+        post {
+            always {
+               bat 'docker logout' 
             }
+        }         
+            
         }
     }
 }
