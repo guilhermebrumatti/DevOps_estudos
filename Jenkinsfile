@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Login to dockerhub') {
             steps{
-                bat 'docker login guilhermebrumatti'
+                bat 'docker login registry-1.docker.io/v1'
             }    
         }
         stage('Push image') {
