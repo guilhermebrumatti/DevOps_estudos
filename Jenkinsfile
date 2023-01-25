@@ -11,7 +11,7 @@ pipeline {
     stages{
         stage('Clone repository') {
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'BitbucketWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'NONE', url: 'https://lrocha85@bitbucket.org/lrocha85/brasileirao.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'NONE', url: 'https://github.com/guilhermebrumatti/desafio1.git']]])
             }
             
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps{
                 
-                bat 'docker build - < Dockerfile'
+                bat 'docker build -t guilhermebrumatti/desafio1:latest .'
             }
         }
         stage('Login to dockerhub') {
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Push image') {
             steps{
-                bat 'docker push lrocha85/brasileirao_image:latest'
+                bat 'docker push guilhermebrumatti/desafio1:latest'
             }  
         post {
             always {
