@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Push image') {
             steps{
-                bat 'docker push guilhermebrumatti/desafio1:latest'
+                bat 'docker push https://github.com/guilhermebrumatti/desafio1.git:latest'
             }  
         post {
             always {
