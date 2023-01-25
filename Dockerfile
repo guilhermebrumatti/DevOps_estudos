@@ -1,11 +1,10 @@
-FROM python:3.8.9
+FROM python:3
 
-WORKDIR /code
+WORKDIR /usr/src/app
 
-COPY ./requirements.txt requirements.txt
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY . .
 
-COPY ./app.py .
-
-CMD [ "uvicorn", "app:app", "--host", "0.0.0.0",  "--port", "80" ]
+CMD [ "python", "./your-daemon-or-script.py" ]
