@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Login to dockerhub') {
             steps{
-                bat 'docker login -u USER_DOCKERHUB --password-stdin PW_DOCKERHUB'
+                bat 'docker login -u super_secret: ${{ secrets.USER_DOCKERHUB }} -p super_secret: ${{ secrets.PW_DOCKERHUB }}'
             }    
         }
         stage('Push image') {
