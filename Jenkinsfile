@@ -3,10 +3,6 @@ pipeline {
         label 'main'
     }
 	
-    environment {
-	  DOCKERHUB_CREDENTIALS = '<password>'
-    }
-	
     stages{
         stage('Clone repository') {
             steps{
