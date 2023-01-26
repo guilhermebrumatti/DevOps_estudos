@@ -27,10 +27,14 @@ pipeline {
                 bat 'docker login -u guilhermebrumatti -p <password>'
             }    
         }
+    	stage('Docker Scan') {
+	    steps{
+		bat 'docker scan desafio1:latest --file Dockerfile'
+	    }
+	}
         stage('Push image') {
             steps{
                 bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:main'
-		bat 'docker scan desafio1:latest'
             }
         post {
             always {
