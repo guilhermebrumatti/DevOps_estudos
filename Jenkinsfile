@@ -4,7 +4,7 @@ pipeline {
     }
 	
     environment {
-	  DOCKER_HUB_ACCESS_TOKEN = '<password>'
+	  DOCKERHUB_ACCESS = '<password>'
     }
 	
     stages{
