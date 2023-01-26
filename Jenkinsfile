@@ -3,6 +3,12 @@ pipeline {
         label 'main'
     }
 	
+    environment {
+	  DOCKERHUB_CREDENTIALS = '<password>'
+	  user: ${{ secrets.DOCKER_HUB_USERNAME }}
+          pw: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    }
+	
     stages{
         stage('Clone repository') {
             steps{
@@ -19,7 +25,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		bat 'docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}'
+		bat 'docker login -u $user -p $pw'
             }    
         }
     	stage('Push image') {
