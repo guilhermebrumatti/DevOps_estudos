@@ -4,7 +4,7 @@ pipeline {
     }
 	
     environment {
-	  DOCKERHUB_ACCESS = '<password>'
+	  DOCKERHUB_ACCESS = credentials('DOCKERHUB_ACCESS_PW')
     }
 	
     stages{
@@ -23,7 +23,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		bat 'docker login --username guilhermebrumatti'
+		bat 'docker login --username guilhermebrumatti -p $DOCKERHUB_ACCESS_PW'
             }    
         }
     	stage('Push image') {
