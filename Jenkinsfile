@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Push image') {
             steps{
-                bat 'Push'
+                bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:main'
             }  
         post {
             always {
