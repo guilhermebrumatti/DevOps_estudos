@@ -18,7 +18,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-                bat 'docker login -u login -p psw'
+		    bat 'docker login -u ${{ secrets.GH_PACKAGES_PSW }} -p ${{ secrets.GH_PACKAGES_USER }}'
             }    
         }
     	stage('Push image') {
