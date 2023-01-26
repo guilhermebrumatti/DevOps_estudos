@@ -25,7 +25,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-                bat 'docker login -u $Token_user --password-stdin $Token_pw'
+                bat 'docker login -u $Token_user -p $Token_pw'
             }    
         }
     	stage('Push image') {
