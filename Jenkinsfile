@@ -30,7 +30,8 @@ pipeline {
         stage('Push image') {
             steps{
                 bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:main'
-            }  
+		bat 'docker scan desafio1:latest'
+            }
         post {
             always {
                bat 'docker logout' 
