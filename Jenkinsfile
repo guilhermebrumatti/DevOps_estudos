@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps{
                 
-                bat 'docker build -t guilhermebrumatti/desafio1:latest .'
+                bat 'docker build -t f3a60f5036189412dd213d72d38c04058ee1ce109aa63b5028edc9a76ad71c72:latest .'
             }
         }
         stage('Docker Scan') {
