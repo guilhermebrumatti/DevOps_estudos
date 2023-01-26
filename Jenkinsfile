@@ -18,12 +18,12 @@ pipeline {
         stage('Build') {
             steps{
                 
-                bat 'docker build -t guilhermebrumatti/desafio1:latest .'
+                bat 'docker build -t guilhermebrumatti/desafio1/imagem:latest .'
             }
         }
 	stage('Login to dockerhub') {
             steps{
-		bat 'docker login -u $DH_LOGIN -p $DH_PSW'
+		bat 'docker login -u username -p password'
             }    
         }
     	stage('Push image') {
