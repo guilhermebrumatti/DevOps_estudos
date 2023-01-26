@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps{
                 
-                bat 'docker build -t guilhermebrumatti/desafio1:latest .'
+                bat 'docker build -t guilhermebrumatti/desafio1:latest https://github.com/guilhermebrumatti/desafio1'
             }
         }
         stage('Login to dockerhub') {
