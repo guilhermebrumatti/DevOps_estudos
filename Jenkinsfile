@@ -19,11 +19,12 @@ pipeline {
             steps{
                 
                 bat 'docker build -t guilhermebrumatti/desafio1/imagem:latest .'
+		echo $senha_DH
             }
         }
 	stage('Login to dockerhub') {
             steps{
-		    bat 'docker login -u credentials.$login_DH -p credentials.$senha_DH'
+		    bat 'docker login -u -p credentials.$senha_DH'
             }    
         }
     	stage('Push image') {
