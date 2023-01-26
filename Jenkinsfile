@@ -23,7 +23,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		    bat 'docker login -u ${DOCKERHUB_LOGIN_USR} --password-stdin ${DOCKERHUB_LOGIN_PSW}'
+		    sh("curl -u ${DOCKERHUB_LOGIN_USR}:${DOCKERHUB_LOGIN_PSW}"
             }    
         }
     	stage('Push image') {
