@@ -23,7 +23,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		bat 'docker login -u <username> -p <password>'
+		bat 'docker login -u guilhermebrumatti -p Guilherme69@'
             }    
         }
     	stage('Push image') {
