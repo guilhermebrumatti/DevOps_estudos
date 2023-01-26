@@ -1,47 +1,39 @@
-pipeline {
-    agent {
-        label 'main'
-    }
+pipeline{
 
-    environment {
-	    DOCKERHUB_CREDENTIALS = '<password>'
+	agent main
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_access')
 	}
 
+	stages {
 
-    stages{
-        stage('Clone repository') {
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'NONE', url: 'https://github.com/guilhermebrumatti/desafio1.git']]])
-            }
-            
-        }
+		stage('Build') {
 
-        stage('Build') {
-            steps{
-                
-                bat 'docker build -t f3a60f5036189412dd213d72d38c04058ee1ce109aa63b5028edc9a76ad71c72:latest .'
-            }
-        }
-        stage('Docker Scan') {
-	    steps{
-		bat 'docker scan guilhermebrumatti/desafio1:latest --file Dockerfile'
-	    }
+			steps {
+				sh 'docker build -t guilhermebrumatti/desafio1:latest .'
+			}
+		}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push guilhermebrumatti/desafio1:latest'
+			}
+		}
 	}
-	stage('Login to dockerhub') {
-            steps{
-                bat 'docker login -u guilhermebrumatti -p <password>'
-            }    
-        }
-    	stage('Push image') {
-            steps{
-                bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:main'
-            }
-        post {
-            always {
-               bat 'docker logout' 
-            }
-        }         
-            
-        }
-    }
+
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
+
 }
