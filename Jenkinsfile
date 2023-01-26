@@ -22,17 +22,17 @@ pipeline {
                 bat 'docker build -t guilhermebrumatti/desafio1:latest .'
             }
         }
-        stage('Login to dockerhub') {
-            steps{
-                bat 'docker login -u guilhermebrumatti -p <password>'
-            }    
-        }
-    	stage('Docker Scan') {
+        stage('Docker Scan') {
 	    steps{
 		bat 'docker scan desafio1:latest --file Dockerfile'
 	    }
 	}
-        stage('Push image') {
+	stage('Login to dockerhub') {
+            steps{
+                bat 'docker login -u guilhermebrumatti -p <password>'
+            }    
+        }
+    	stage('Push image') {
             steps{
                 bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:main'
             }
