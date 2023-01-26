@@ -5,8 +5,6 @@ pipeline {
 	
     environment {
 	  DOCKERHUB_CREDENTIALS = '<password>'
-	  username: ${{ secrets.GH_PACKAGES_PSW }}
-	  password: ${{ secrets.GH_PACKAGES_USER }}
     }
 	
     stages{
@@ -25,7 +23,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		    bat 'docker login -u username -p password'
+		bat 'docker login -u DH_LOGIN -p DH_PSW'
             }    
         }
     	stage('Push image') {
