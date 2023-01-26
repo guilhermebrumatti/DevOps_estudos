@@ -2,12 +2,6 @@ pipeline {
     agent {
         label 'main'
     }
-
-    environment {
-	    DOCKERHUB_CREDENTIALS = 'DOCKER-USERNAME'
-	}
-
-
     stages{
         stage('Clone repository') {
             steps{
@@ -24,7 +18,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-                bat 'docker login -u <user> -p <password>'
+                bat 'docker login -u DH_LOGIN -p $DH_PSW'
             }    
         }
     	stage('Push image') {
