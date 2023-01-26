@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Docker Scan') {
 	    steps{
-		bat 'docker scan desafio1:latest --file Dockerfile'
+		bat 'docker scan guilhermebrumatti/desafio1:latest --file Dockerfile'
 	    }
 	}
 	stage('Login to dockerhub') {
