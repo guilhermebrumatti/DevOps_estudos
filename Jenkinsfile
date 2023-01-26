@@ -2,6 +2,13 @@ pipeline {
     agent {
         label 'main'
     }
+	
+    environment {
+	  DOCKERHUB_CREDENTIALS = '<password>'
+	  username: ${{ secrets.GH_PACKAGES_PSW }}
+	  password: ${{ secrets.GH_PACKAGES_USER }}
+    }
+	
     stages{
         stage('Clone repository') {
             steps{
@@ -18,7 +25,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		    bat 'docker login -u ${{ secrets.GH_PACKAGES_PSW }} -p ${{ secrets.GH_PACKAGES_USER }}'
+		    bat 'docker login -u username -p password'
             }    
         }
     	stage('Push image') {
