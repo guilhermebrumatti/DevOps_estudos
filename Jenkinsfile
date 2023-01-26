@@ -24,12 +24,12 @@ pipeline {
         }
         stage('Login to dockerhub') {
             steps{
-                bat 'docker login -u <user> -p <password>'
+                bat 'docker login -u guilhermebrumatti -p PW_DOCKERHUB'
             }    
         }
         stage('Push image') {
             steps{
-                bat 'git push https://github.com/guilhermebrumatti/desafio1 HEAD:guilhermebrumatti'
+                bat 'Push'
             }  
         post {
             always {
