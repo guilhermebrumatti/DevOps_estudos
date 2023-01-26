@@ -23,7 +23,10 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		    sh("curl -u ${DOCKERHUB_LOGIN_USR}:${DOCKERHUB_LOGIN_PSW}"
+		withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_ACCESS', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    	// the code here can access $pass and $user
+                	bat 'docker login -u pass -p user'
+		}
             }    
         }
     	stage('Push image') {
