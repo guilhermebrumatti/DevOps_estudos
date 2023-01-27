@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-last
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - uses: azure/docker-login@v2
+      with:
+        login-server: ghcr.io
+        username: ${{ secrets.GH_PACKAGES_USER }}
+        password: ${{ secrets.GH_PACKAGES_TOKEN }}
+        
+    - run: |
+        docker build -t ghcr.io/guilhermebrumatti/desafio1/imagem:latest -f Dockerfile .
+        docker tag ghcr.io/guilhermebrumatti/desafio1/imagem:latest ghcr.io/guilhermebrumatti/desafio1/imagem:${{ github.sha }}
+        
+    - run: |
+        docker push ghcr.io/guilhermebrumatti/desafio1/imagem:latest
+        docker push ghcr.io/guilhermebrumatti/desafio1/imagem:${{ github.sha }}
