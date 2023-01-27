@@ -21,7 +21,7 @@ pipeline {
     	stage('Push image') {
             steps{
                withDockerRegistry([ credentialsId: "DOCKERHUB_ACCESS", url: "" ]) {
-	       bat 'docker login ghcr.io -u guilhermebrumatti --password-stdin'
+	       bat 'docker login ghcr.io -u USERNAME -p PASSWORD'
 	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1/imagem:latest'
 	       }
             }
