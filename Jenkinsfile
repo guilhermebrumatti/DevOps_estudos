@@ -11,24 +11,18 @@ pipeline {
         stage('Clone repository') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/guilhermebrumatti/desafio1.git'], extensions: [], userRemoteConfigs: [[credentialsId: 'dockerhub_access', url: 'https://github.com/guilhermebrumatti/desafio1.git']]])
-            }
-            
+            }            
         }
-
         stage('Build') {
-            steps{
-                
+            steps{                
                 bat 'docker build -t guilhermebrumatti/desafio1/imagem:latest .'
             }
         }
-	stage('Login to dockerhub') {
-            steps{
-                bat 'docker login -u $USER -p $PSW'
-            }    
-        }
     	stage('Push image') {
             steps{
-               echo 'push image'
+               withDockerRegistry([ credentialsId: "DOCKERHUB_ACCESS", url: "" ]) {
+	       dockerImage.push()
+	       }
             }
         post {
             always {
