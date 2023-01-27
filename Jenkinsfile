@@ -15,13 +15,15 @@ pipeline {
         }
         stage('Build') {
             steps{                
-                bat 'docker build -t guilhermebrumatti/desafio1/imagem:latest .'
+                bat 'docker build -t ghcr.io/guilhermebrumatti/desafio1/imagem:latest .'
+		bat 'docker tag ghcr.io/guilhermebrumatti/desafio1/imagem:latest ghcr.io/guilhermebrumatti/desafio1/imagem:${{ github.sha }}'
             }
         }
     	stage('Push image') {
             steps{
                withDockerRegistry([ credentialsId: "DOCKERHUB_ACCESS", url: "" ]) {
 	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1/imagem:latest'
+	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1/imagem:${{ github.sha }}'
 	       }
             }
         post {
