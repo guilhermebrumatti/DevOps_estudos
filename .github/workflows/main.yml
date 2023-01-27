@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           
       - name: Build and push Docker images
-        uses: docker/build-push-action@v3.2.0
+        uses: docker/build-push-action@v3.3.0
         with:
           context: .
           push: true
@@ -29,5 +29,10 @@ jobs:
             guilhermebrumatti/desafio1:v1
             guilhermebrumatti/desafio1:latest
             
-          run: |
-            docker push --api-key ${{ secrets.GITHUB_TOKEN }} --source guilhermebrumatti/desafio1:latest --skip-duplicate
+      - name: Docker Build Tag Publish      
+        uses: bitovi/github-actions-docker-publish@v1.0.7
+        with:
+          image_tag: latest
+          repo_name: guilhermebrumatti/desafio1
+          docker_username: ${{ secrets.USERNAME }}
+          docker_password: ${{ secrets.PASSWORD }}
