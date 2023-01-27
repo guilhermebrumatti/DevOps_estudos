@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  workflow_dispatch:
+  
   push:
     branches: [main]
     
@@ -26,3 +28,6 @@ jobs:
           tags: |
             guilhermebrumatti/desafio1:v1
             guilhermebrumatti/desafio1:latest
+            
+          run: |
+            docker push --api-key ${{ secrets.GITHUB_TOKEN }} --source guilhermebrumatti/desafio1:latest --skip-duplicate
