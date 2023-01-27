@@ -4,7 +4,7 @@ pipeline {
     }
 	
     environment {
-	  DOCKERHUB_LOGIN = credentials('DOCKERHUB_ACCESS')
+	  DOCKERHUB_CREDENTIALS = '<password>'
     }
 	
     stages{
@@ -23,10 +23,7 @@ pipeline {
         }
 	stage('Login to dockerhub') {
             steps{
-		withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_ACCESS', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    	// the code here can access $pass and $user
-                	bat 'docker login -u -p %user%'
-		}
+                bat 'docker login -u <username> -p <password>'
             }    
         }
     	stage('Push image') {
