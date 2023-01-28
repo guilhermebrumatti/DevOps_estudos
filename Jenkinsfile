@@ -15,13 +15,13 @@ pipeline {
         }
         stage('Build') {
             steps{                
-                bat 'docker build -t ghcr.io/guilhermebrumatti/desafio1:latest .'
+                bat 'docker build -t desafio1_image:latest .'
             }
         }
     	stage('Push image') {
             steps{
                withDockerRegistry([ credentialsId: "DOCKERHUB_ACCESS", url: "" ]) {
-	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1:latest'
+	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1_image:latest'
 	       }
             }
         post {
