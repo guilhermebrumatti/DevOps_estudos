@@ -1,12 +1,10 @@
 pipeline {
-    agent {
-        label 'main'
-    }	
     stages{
-        stage('Start') {
-            steps{
-                sh 'gh workflow run publish.yml'
-            }
+        stage('Clone repository') {
+        }            
+        stage('Build') {
         }
-    }
+    	stage('Push image') {
+        }         
+        }
 }
