@@ -1,29 +1,19 @@
-name: CI
-
-on:
-  workflow_dispatch:
-  
-  push:
-    branches: [main]
-    
+name: publish
+on: [push]
 jobs:
-  CI:
-    runs-on: ubuntu-latest
-    
-    steps:
-    
-      - uses: actions/checkout@v3
-    
-      - name: Docker Login
-        uses: docker/login-action@v2.1.0
-        with:
-          username: ${{ secrets.USERNAME }}  
-          password: ${{ secrets.PASSWORD }}
-            
-      - name: Docker Build Tag Publish      
-        uses: bitovi/github-actions-docker-publish@v1.0.7
-        with:
-          image_tag: latest
-          repo_name: guilhermebrumatti/desafio1
-          docker_username: ${{ secrets.USERNAME }}
-          docker_password: ${{ secrets.PASSWORD }}
+publish-hello-docker-image:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Login to GitHub Container Registry
+uses: docker/login-action@v1
+with:
+registry: ghcr.io
+username: ${{ github.actor }}
+password: ${{ secrets.GITHUB_TOKEN }}
+- name: Build Docker image
+run: |
+       docker build . --tag ghcr.io/guilhermebrumatti/desafio1_image:latest
+       docker run ghcr.io/guilhermebrumatti/desafio1_image:latest
+       docker push ghcr.io/guilhermebrumatti/desafio1_image:latest
+
