@@ -1,3 +1,3 @@
 Pipeline{
-  gh workflow run publish.yml 
+  gh workflow run .github/workflows/publish.yml 
 }
