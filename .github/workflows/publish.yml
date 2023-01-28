@@ -1,23 +1,21 @@
 name: CI
-
 on:
   workflow_dispatch:
-  
   push:
     branches: [main]
 jobs:
-publish-hello-docker-image:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
-- name: Login to GitHub Container Registry
-uses: docker/login-action@v1
-with:
-registry: ghcr.io
-username: ${{ secrets.USERNAME_GITHUB }}
-password: ${{ secrets.GITHUB_TOKEN_2 }}
-- name: Build the hello-docker Docker image
-run: |
-       docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
-       docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
-       docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+  publish-hello-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.USERNAME_GITHUB }}
+          password: ${{ secrets.GITHUB_TOKEN_2 }}
+      - name: Build the hello-docker Docker image
+        run: |
+               docker build . --tag ghcr.io/guilhermebrumatti/desafio1:latest
+               docker run ghcr.io/guilhermebrumatti/desafio1:latest
+               docker push ghcr.io/guilhermebrumatti/desafio1:latest
