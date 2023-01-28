@@ -4,7 +4,9 @@ pipeline {
     }
     stages{
         stage('Clone repository') {
-            gh workflow run triage.yml
+            bat 'antes do yml'
+            g@h workflow run triage.yml
+            bat 'depois do yml'
         }       
     }
 }
