@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build') {
             steps{                
-                bat 'docker build -t desafio1_image:latest .'
+                bat 'docker build -t guilhermebrumatti/desafio1:latest .'
             }
         }
     	stage('Push image') {
