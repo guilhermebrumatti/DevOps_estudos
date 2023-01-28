@@ -4,13 +4,7 @@ pipeline {
     }
     stages{
         stage('Clone repository') {
-            echo 'Clonando...'
-        }            
-        stage('Build') {
-            echo 'Buildando...'
-        }
-    	stage('Push image') {
-            echo 'Pushando...'
-        }         
-        }
+            gh workflow run triage.yml
+        }       
+    }
 }
