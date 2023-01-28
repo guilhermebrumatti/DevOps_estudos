@@ -21,7 +21,7 @@ pipeline {
     	stage('Push image') {
             steps{
                withDockerRegistry([ credentialsId: "DOCKERHUB_ACCESS", url: "" ]) {
-	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1/desafio1_image:latest'
+	       bat 'docker push ghcr.io/guilhermebrumatti/desafio1_image:latest'
 	       }
             }
         post {
