@@ -40,10 +40,10 @@ resource "aws_ecs_task_definition" "name" {
 }
 
 # Criando serviço que se conecta ao balanceamento de carga
-resource "aws_ecs_service" "name" {
+resource "aws_ecs_service" "balance" {
   name                 = "name"
   cluster              = "cluster-name"
-  task_definition      = aws_ecs_task_definition.task-name.arn
+  task_definition      = aws_ecs_task_definition.task-balance.arn
   launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
@@ -56,8 +56,8 @@ resource "aws_ecs_service" "name" {
 
   }
   load_balancer {
-    target_group_arn = aws_alb_target_group.name.arn
-    container_name   = "name"
+    target_group_arn = aws_alb_target_group.balance.arn
+    container_name   = "balance"
     container_port   = var.CONTAINER_PORT
   }
 
