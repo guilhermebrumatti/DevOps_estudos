@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "name" {
       memory           = 2048
       executionRoleArn = var.ROLE
       environment = [
-        {name = "var-name", value = var.<var-name>}
+        {name = "var-name", value = var.name}
       ],
 
       logConfiguration = {
