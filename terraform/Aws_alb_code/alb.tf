@@ -1,12 +1,12 @@
 # Aws Load Balance
-# Creating a loadbalance resource
+# Cria um recurso de balanceamento de carga
 resource "aws_alb" "service-name" {
   name            = "service-name"
   security_groups = ["sg-name"]
   subnets         = ["subnet-name"]
 }
 
-# Creating a target group resource to use with loadbalance
+# Cria um recurso de grupo de destino para usar com balanceamento de carga
 resource "aws_alb_target_group" "service-name" {
   name        = "service-name"
   port        = <num>
@@ -26,7 +26,7 @@ resource "aws_alb_target_group" "service-name" {
   }
 }
 
-# Creating a listener necessary for loadbalance
+# Cria um listener necessário para balanceamento de carga
 resource "aws_alb_listener" "ecs-cluster-listener" {
   load_balancer_arn = aws_alb.service-name.id
   port              = <num>
