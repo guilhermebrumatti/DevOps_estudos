@@ -12,7 +12,8 @@ variable "HOST_PORT" {
 }
 
 variable "IMAGEM" {
-    default = "*******.dkr.ecr.us-east-1.amazonaws.com/repositorio-name:tag"
+    #default = "*******.dkr.ecr.us-east-1.amazonaws.com/repositorio-name:tag"
+    default = "ghcr.io/guilhermebrumatti/python_image:latest"
 }
 
 variable "VPC_ID" {
