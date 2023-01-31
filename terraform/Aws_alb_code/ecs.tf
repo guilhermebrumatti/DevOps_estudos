@@ -44,7 +44,7 @@ resource "aws_ecs_service" "balance" {
   name                 = "name"
   cluster              = "cluster-name"
   task_definition      = aws_ecs_task_definition.task-balance.arn
-  launch_type          = "FARGATE"
+  #launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
   enable_execute_command = true
@@ -56,7 +56,7 @@ resource "aws_ecs_service" "balance" {
 
   }
   load_balancer {
-    target_group_arn = aws_alb_target_group.balance.arn
+    #target_group_arn = aws_alb_target_group.balance.arn
     container_name   = "balance"
     container_port   = var.CONTAINER_PORT
   }
