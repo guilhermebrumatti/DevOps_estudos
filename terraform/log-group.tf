@@ -1,5 +1,5 @@
-# Creating log group
-resource "aws_cloudwatch_log_group" "resource-name" {
-  name              = "log-group-name"
-  retention_in_days = 1
+# Creating log group for this alb
+resource "aws_cloudwatch_log_group" "name" {
+  name              = "name"
+  retention_in_days = 30
 }
