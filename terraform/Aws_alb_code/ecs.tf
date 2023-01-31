@@ -1,5 +1,5 @@
-# Elastic Container Service
-# Creating a task definition resource, this resource set details for service and the container definitions set details for container
+# ECS - Elastic Container Service
+# Criando um recurso de definição de tarefa, este recurso define detalhes para o serviço e as definições de contêiner definem detalhes para o contêiner
 resource "aws_ecs_task_definition" "name" {
   family                   = "name"
   requires_compatibilities = ["FARGATE"]
@@ -39,7 +39,7 @@ resource "aws_ecs_task_definition" "name" {
   ])
 }
 
-# Creating service who connect to load balance
+# Criando serviço que se conecta ao balanceamento de carga
 resource "aws_ecs_service" "name" {
   name                 = "name"
   cluster              = "cluster-name"
