@@ -16,14 +16,14 @@ resource "aws_ecs_task_definition" "name" {
       cpu              = 1024
       memory           = 2048
       executionRoleArn = var.ROLE
-      #environment = [
-      #  {name = "var-name", value = var.name}
-      #],
+      environment = [
+        {name = "var-name", value = var.name}
+      ],
 
       logConfiguration = {
           "logDriver": "awslogs",
           "options": {
-            #"awslogs-group": "${group-name}",
+            "awslogs-group": "${group-name}",
             "awslogs-region": "us-east-1",
             "awslogs-stream-prefix": "ecs"
           }
@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "name" {
 resource "aws_ecs_service" "balance" {
   name                 = "name"
   cluster              = "cluster-name"
-  #task_definition      = aws_ecs_task_definition.task-balance.arn
+  task_definition      = aws_ecs_task_definition.task-balance.arn
   launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
@@ -56,7 +56,7 @@ resource "aws_ecs_service" "balance" {
 
   }
   load_balancer {
-    #target_group_arn = aws_alb_target_group.balance.arn
+    target_group_arn = aws_alb_target_group.balance.arn
     container_name   = "balance"
     container_port   = var.CONTAINER_PORT
   }
