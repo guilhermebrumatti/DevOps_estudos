@@ -1,4 +1,4 @@
-#Aws Load Balance
+# Aws Load Balance
 # Creating a loadbalance resource
 resource "aws_alb" "service-name" {
   name            = "service-name"
