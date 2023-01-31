@@ -1,4 +1,4 @@
-# Here i'm creating a remote states for terraform, this is very important when you work with a team
+# Aqui estou criando estados remotos para terraform, isso é muito importante quando você trabalha com uma equipe
 terraform {
   backend "s3" {
     bucket = "bucket-name"
