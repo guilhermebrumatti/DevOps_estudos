@@ -1,4 +1,4 @@
-# Variables file for more organization
+# Arquivo de variáveis para mais organização
 variable "ROLE" {
     default = "arn:aws:iam::ROLE"
 }
