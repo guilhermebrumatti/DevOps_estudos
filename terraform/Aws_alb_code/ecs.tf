@@ -43,8 +43,8 @@ resource "aws_ecs_task_definition" "name" {
 resource "aws_ecs_service" "balance" {
   name                 = "name"
   cluster              = "cluster-name"
-  task_definition      = aws_ecs_task_definition.task-balance.arn
-  #launch_type          = "FARGATE"
+  #task_definition      = aws_ecs_task_definition.task-balance.arn
+  launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
   enable_execute_command = true
