@@ -1,6 +1,7 @@
+# Elastic Container Service
 # Creating a task definition resource, this resource set details for service and the container definitions set details for container
-resource "aws_ecs_task_definition" "resource-name" {
-  family                   = "resource-name"
+resource "aws_ecs_task_definition" "name" {
+  family                   = "name"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 1024
@@ -9,17 +10,20 @@ resource "aws_ecs_task_definition" "resource-name" {
   task_role_arn 	         = var.ROLE
   container_definitions = jsonencode([
     {
-      name             = "container_name"
+      name             = "name"
       image            = var.IMAGEM
       essential        = true
       cpu              = 1024
       memory           = 2048
       executionRoleArn = var.ROLE
+      environment = [
+        {name = "var-name", value = var.<var-name>}
+      ],
 
       logConfiguration = {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "${aws_cloudwatch_log_group.app-name.name}",
+            "awslogs-group": "${group-name}",
             "awslogs-region": "us-east-1",
             "awslogs-stream-prefix": "ecs"
           }
@@ -35,11 +39,11 @@ resource "aws_ecs_task_definition" "resource-name" {
   ])
 }
 
-# Creating service
-resource "aws_ecs_service" "resource.name" {
-  name                 = "service-name"
+# Creating service who connect to load balance
+resource "aws_ecs_service" "name" {
+  name                 = "name"
   cluster              = "cluster-name"
-  task_definition      = aws_ecs_task_definition.task_definition.name.arn
+  task_definition      = aws_ecs_task_definition.task-name.arn
   launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
@@ -51,5 +55,12 @@ resource "aws_ecs_service" "resource.name" {
     assign_public_ip = true
 
   }
-}
+  load_balancer {
+    target_group_arn = aws_alb_target_group.name.arn
+    container_name   = "name"
+    container_port   = var.CONTAINER_PORT
+  }
 
+  depends_on = [aws_alb_listener.ecs-cluster-listener]
+
+}
