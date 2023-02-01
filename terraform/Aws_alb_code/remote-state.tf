@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     bucket = "bucketestudosdevops1"
-    key    = "terraform/terraform.tfstate"
+    key    = "terraform/Aws_alb_code/terraform.tfstate"
     region = "us-east-1"
   }
 }
