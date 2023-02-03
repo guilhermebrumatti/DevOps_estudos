@@ -32,7 +32,6 @@ resource "aws_alb_listener" "ecs-cluster-listener" {
   port              = 8082
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn"
   default_action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.service-name.id
