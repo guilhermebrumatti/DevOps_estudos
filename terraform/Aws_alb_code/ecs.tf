@@ -6,8 +6,6 @@ resource "aws_ecs_task_definition" "name" {
   network_mode             = "awsvpc"
   cpu                      = 1024
   memory                   = 2048
-  execution_role_arn       = var.ROLE
-  task_role_arn 	         = var.ROLE
   container_definitions = jsonencode([
     {
       name             = "name"
@@ -39,7 +37,6 @@ resource "aws_ecs_task_definition" "name" {
 resource "aws_ecs_service" "balance" {
   name                 = "name"
   cluster              = "cluster-name"
-  task_definition      = aws_ecs_task_definition.task-balance.arn
   launch_type          = "FARGATE"
   desired_count        = 1
   force_new_deployment = true
@@ -52,7 +49,6 @@ resource "aws_ecs_service" "balance" {
 
   }
   load_balancer {
-    target_group_arn = aws_alb_target_group.balance.arn
     container_name   = "balance"
     container_port   = var.CONTAINER_PORT
   }

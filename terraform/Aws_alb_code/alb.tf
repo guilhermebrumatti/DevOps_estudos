@@ -13,16 +13,16 @@ resource "aws_alb_target_group" "service-name" {
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = var.VPC_ID
-    
-    health_check {
-    path              = "/"
-    interval          = 60
-    port              = 8082
-    protocol          = "HTTP"
-    timeout           = 3
-    healthy_threshold = 3
+
+  health_check {
+    path                = "/"
+    interval            = 60
+    port                = 8082
+    protocol            = "HTTP"
+    timeout             = 3
+    healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher = "200-404"
+    matcher             = "200-404"
   }
 }
 
