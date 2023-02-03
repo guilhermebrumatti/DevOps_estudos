@@ -1,6 +1,6 @@
 # Arquivo de variáveis para mais organização
 variable "ROLE" {
-  default = "arn:aws:iam::ROLE"
+  default = "arn:aws:iam::418737510281:role"
 }
 
 variable "CONTAINER_PORT" {
