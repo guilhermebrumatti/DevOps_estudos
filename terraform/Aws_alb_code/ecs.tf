@@ -15,15 +15,11 @@ resource "aws_ecs_task_definition" "name" {
       essential        = true
       cpu              = 1024
       memory           = 2048
-      executionRoleArn = var.ROLE
-      environment = [
-        {name = "var-name", value = var.name}
-      ],
+      executionRoleArn = var.ROLE,
 
       logConfiguration = {
           "logDriver": "awslogs",
           "options": {
-            "awslogs-group": "${group-name}",
             "awslogs-region": "us-east-1",
             "awslogs-stream-prefix": "ecs"
           }
